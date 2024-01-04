@@ -5,3 +5,5 @@ The editor generates JSON format definitions of voxel type meshes in advance and
 Voxel-type mesh generation has the following features:
 - Removes unnecessary meshes that are not visible on the screen
 - Rich graphic selection depending on the terrain
+
+You can try this editor [here](https://master--storied-mermaid-67e29f.netlify.app/voxel-meshes)!
