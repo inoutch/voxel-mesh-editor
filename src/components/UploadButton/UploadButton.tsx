@@ -4,12 +4,13 @@ import React from "react";
 
 interface UploadButtonProps {
   name: string;
-  onSelectFiles: (files: FileList | null) => void;
+  variant?: "text" | "outlined" | "contained";
+  onFilesSelect: (files: FileList | null) => void;
 }
 
 export const UploadButton: React.FC<
   React.PropsWithChildren<UploadButtonProps>
-> = ({ name, children, onSelectFiles }) => {
+> = ({ name, variant, children, onFilesSelect: onSelectFiles }) => {
   return (
     <label htmlFor={`__upload-button-${name}`}>
       <input
@@ -22,7 +23,7 @@ export const UploadButton: React.FC<
         `}
         onChange={(event) => onSelectFiles(event.target.files)}
       />
-      <Button variant="contained" component="span">
+      <Button variant={variant} component="span">
         {children}
       </Button>
     </label>
