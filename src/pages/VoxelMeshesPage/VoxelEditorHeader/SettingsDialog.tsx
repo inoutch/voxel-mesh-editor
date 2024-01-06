@@ -94,7 +94,7 @@ export const SettingsDialog: React.FC<SettingsDialogProps> = ({
           )}
           {settings.model.type === "bytes" && (
             <>
-              <UploadButton name="glb" onSelectFiles={handleFilesSelect}>
+              <UploadButton name="glb" onFilesSelect={handleFilesSelect}>
                 Upload
               </UploadButton>
               <p>{settings.model.filename}</p>

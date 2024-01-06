@@ -9,7 +9,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import dayjs from "dayjs";
 import React from "react";
-import { VoxelMeshDatabaseStore } from "../../../modules/voxel/types";
+import { UploadButton } from "../../../components/UploadButton/UploadButton";
+import { readAsTextPromise } from "../../../modules/readAsTextPromise";
+import { migrate, VoxelMeshDatabaseStore } from "../../../modules/voxel/types";
 import { useVoxelMeshDatabaseBackups } from "../../../modules/voxel/useVoxelMeshDatabaseStore";
 
 interface LoadDialogProps {
@@ -24,6 +26,17 @@ export const LoadDialog: React.FC<LoadDialogProps> = ({
   onLoad,
 }) => {
   const { store } = useVoxelMeshDatabaseBackups();
+  const handleFilesSelect = async (files: FileList | null) => {
+    const file = files?.[0];
+    if (!file) {
+      return;
+    }
+    const text = await readAsTextPromise(file);
+    const data = JSON.parse(text);
+    const store = migrate(data);
+    onLoad(store);
+    onClose();
+  };
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth={"sm"}>
       <DialogTitle>Load from history</DialogTitle>
@@ -42,6 +55,9 @@ export const LoadDialog: React.FC<LoadDialogProps> = ({
         </List>
       </DialogContent>
       <DialogActions>
+        <UploadButton name="load" onFilesSelect={handleFilesSelect}>
+          Upload
+        </UploadButton>
         <Button onClick={onClose}>Cancel</Button>
       </DialogActions>
     </Dialog>

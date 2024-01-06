@@ -25,8 +25,13 @@ export const useVoxelMeshDatabaseBackups = () => {
 
   const pushBackup = useCallback(
     (value: VoxelMeshDatabaseStore) => {
+      const newBackups = [
+        ...store.backups,
+        { store: value, createdAt: Date.now() },
+      ].slice(0, 100);
+      newBackups.sort((a, b) => b.createdAt - a.createdAt);
       setStore({
-        backups: [...store.backups, { store: value, createdAt: Date.now() }],
+        backups: newBackups,
       });
     },
     [setStore, store],
