@@ -9,6 +9,7 @@ Voxel-type mesh generation has the following features:
 - Rich graphic selection depending on the terrain
 
 ![runtime example](https://raw.githubusercontent.com/inoutch/voxel-mesh-editor/master/docs/runtime-example.gif)
+
 (This example worked on Godot's editor)
 
 You can try this editor [here](https://master--storied-mermaid-67e29f.netlify.app/voxel-meshes)!
