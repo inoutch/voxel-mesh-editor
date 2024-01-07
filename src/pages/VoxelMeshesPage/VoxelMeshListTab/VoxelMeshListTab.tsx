@@ -42,7 +42,6 @@ export const VoxelMeshListTab = () => {
         (voxelMesh) => voxelMesh.name,
       ),
       groupName: null,
-      rotation: "all",
       parts: [],
       hider: { types: [] },
     });

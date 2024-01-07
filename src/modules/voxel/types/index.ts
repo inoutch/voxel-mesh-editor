@@ -1,16 +1,12 @@
 import z from "zod";
-import {
-  voxelMeshDatabaseStoreSchema as voxelMeshDatabaseStoreSchemaV0_0_1,
-  voxelMeshRotationSchema,
-} from "./v0.0.1";
+import { voxelMeshDatabaseStoreSchema as voxelMeshDatabaseStoreSchemaV0_0_1 } from "./v0.0.1";
+import { voxelMeshDatabaseStoreSchema as voxelMeshDatabaseStoreSchemaLatest } from "./v0.0.2";
 
 export type VoxelMeshDatabaseStore = z.infer<
-  typeof voxelMeshDatabaseStoreSchemaV0_0_1
+  typeof voxelMeshDatabaseStoreSchemaLatest
 >;
 
 export type VoxelMesh = VoxelMeshDatabaseStore["meshes"][0];
-
-export type VoxelMeshRotation = VoxelMesh["rotation"];
 
 export type VoxelMeshHiderType = VoxelMesh["hider"]["types"][0];
 
@@ -41,17 +37,29 @@ export const voxelMeshHiderTypes: VoxelMeshHiderType[] = [
   "top",
 ];
 
-export const migrate = (data: unknown) => {
-  const baseSchema = z.object({
-    version: z.string(),
-  });
+export const migrate = (data: unknown): VoxelMeshDatabaseStore => {
+  const baseSchema = z.discriminatedUnion("version", [
+    voxelMeshDatabaseStoreSchemaLatest,
+    voxelMeshDatabaseStoreSchemaV0_0_1,
+  ]);
 
-  const value = baseSchema.parse(data);
+  let value = baseSchema.parse(data);
   let fails = false;
   while (!fails) {
     switch (value.version) {
       case "0.0.1":
-        return voxelMeshDatabaseStoreSchemaV0_0_1.parse(data);
+        value = {
+          version: "0.0.2",
+          meshes: value.meshes.map((mesh) => ({
+            name: mesh.name,
+            groupName: mesh.groupName,
+            hider: mesh.hider,
+            parts: mesh.parts,
+          })),
+        };
+        break;
+      case "0.0.2":
+        return value;
       default:
         fails = true;
         break;
@@ -60,17 +68,9 @@ export const migrate = (data: unknown) => {
   throw new Error(`Unsupported version [${value.version}]`);
 };
 
-export const voxelMeshRotations: z.infer<typeof voxelMeshRotationSchema>[] = [
-  "left",
-  "right",
-  "near",
-  "far",
-  "all",
-];
-
 export const createDefault = (): VoxelMeshDatabaseStore => {
   return {
-    version: "0.0.1",
+    version: "0.0.2",
     meshes: [],
   };
 };

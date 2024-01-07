@@ -1,14 +1,7 @@
-import {
-  css,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
+import { css, TextField } from "@mui/material";
 import React, { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { VoxelMesh, voxelMeshRotations } from "../../../modules/voxel/types";
+import { VoxelMesh } from "../../../modules/voxel/types";
 
 interface VoxelMeshFormProps {
   defaultValues: VoxelMesh;
@@ -82,26 +75,6 @@ export const VoxelMeshForm: React.FC<VoxelMeshFormProps> = ({
             fullWidth
             error={!!formState.errors.groupName?.message}
           />
-        )}
-      />
-      <Controller
-        control={control}
-        name="rotation"
-        render={({ field, formState }) => (
-          <FormControl fullWidth>
-            <InputLabel>Rotation</InputLabel>
-            <Select
-              label="Rotation"
-              {...field}
-              error={!!formState.errors.rotation?.message}
-            >
-              {voxelMeshRotations.map((x) => (
-                <MenuItem key={x} value={x}>
-                  {x}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
         )}
       />
     </form>

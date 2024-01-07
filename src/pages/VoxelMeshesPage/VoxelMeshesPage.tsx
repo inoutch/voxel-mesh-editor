@@ -22,13 +22,6 @@ export const VoxelMeshesPage = () => {
       >
         <div
           css={css`
-            flex: 1;
-          `}
-        >
-          <Previewer />
-        </div>
-        <div
-          css={css`
             width: 360px;
             background-color: rgba(0, 0, 0, 0.03);
             overflow-y: scroll;
@@ -39,6 +32,13 @@ export const VoxelMeshesPage = () => {
           {type === "voxelMeshPart" && <VoxelMeshPartListTab />}
           {type === "voxelMeshRule" && <VoxelMeshRuleListTab />}
           {type === "voxelMeshRelation" && <VoxelMeshRelationListTab />}
+        </div>
+        <div
+          css={css`
+            flex: 1;
+          `}
+        >
+          <Previewer />
         </div>
       </div>
     </div>
