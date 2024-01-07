@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   Button,
   css,
   FormControl,
@@ -129,20 +130,26 @@ export const VoxelMeshRelationForm: React.FC<VoxelMeshPartFormProps> = ({
             },
           }}
           render={({ field }) => (
-            <FormControl fullWidth>
-              <InputLabel>Name</InputLabel>
-              <Select
-                label="Name"
-                {...field}
-                error={!!formState.errors.name?.message}
-              >
-                {groupNames.map((x) => (
-                  <MenuItem key={x} value={x}>
-                    {x}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <Autocomplete
+              selectOnFocus
+              freeSolo
+              options={groupNames}
+              value={field.value}
+              onChange={(event, value) => {
+                field.onChange(value || "");
+                handleSubmit(onSubmit)();
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="name"
+                  onBlur={(event) => {
+                    field.onChange(event.target.value);
+                    field.onBlur();
+                  }}
+                />
+              )}
+            />
           )}
         />
       )}
