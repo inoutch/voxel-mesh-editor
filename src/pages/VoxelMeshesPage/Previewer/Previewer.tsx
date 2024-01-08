@@ -67,10 +67,7 @@ export const Previewer = () => {
       <pointLight position={[0, 5, 5]} intensity={100.0} />
       {selectedVoxelMeshRule ? (
         <>
-          <Model
-            gltfFilepath="/glass_stone.glb"
-            names={selectedVoxelMeshRule.graphicMeshNames}
-          />
+          <Model names={selectedVoxelMeshRule.graphicMeshNames} />
           {selectedVoxelMeshRelation ? (
             <RelationBox relation={selectedVoxelMeshRelation} />
           ) : (
@@ -80,10 +77,7 @@ export const Previewer = () => {
           )}
         </>
       ) : (
-        <Model
-          gltfFilepath="/glass_stone.glb"
-          names={bundle?.graphicMeshNames || []}
-        />
+        <Model names={bundle?.graphicMeshNames || []} />
       )}
       <axesHelper
         args={[5]}
