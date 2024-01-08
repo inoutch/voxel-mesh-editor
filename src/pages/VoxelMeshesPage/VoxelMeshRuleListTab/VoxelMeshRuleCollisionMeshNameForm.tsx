@@ -39,7 +39,7 @@ export const VoxelMeshRuleCollisionMeshNameForm: React.FC<
       onSubmit={handleSubmit(onSubmit)}
       css={css`
         padding: 0 16px;
-        > *:not(first-child) {
+        > *:not(:first-of-type) {
           margin-top: 12px;
         }
       `}

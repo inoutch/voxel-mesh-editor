@@ -25,7 +25,7 @@ export const VoxelMeshRuleForm: React.FC<VoxelMeshRuleFormProps> = ({
       onBlur={handleSubmit(onSubmit)}
       css={css`
         padding: 16px;
-        > *:not(first-child) {
+        > *:not(:first-of-type) {
           margin-top: 12px;
         }
       `}

@@ -24,7 +24,7 @@ export const VoxelMeshRuleGraphicMeshNameForm: React.FC<
       onBlur={handleSubmit(onSubmit)}
       css={css`
         padding: 0 16px;
-        > *:not(first-child) {
+        > *:not(:first-of-type) {
           margin-top: 12px;
         }
       `}
