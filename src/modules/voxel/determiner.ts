@@ -311,7 +311,7 @@ const getHiderType = (direction: { x: number; y: number; z: number }) => {
       },
     },
   };
-  return map[direction.z]?.[direction.y]?.[direction.z];
+  return map[direction.x]?.[direction.y]?.[direction.z];
 };
 
 const hasHiderTypeFromDirection = (
