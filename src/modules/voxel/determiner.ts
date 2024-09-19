@@ -2,7 +2,6 @@ import {
   VoxelMeshDatabaseStore,
   VoxelMeshHiderType,
   VoxelMeshRelation,
-  VoxelMeshRotation,
 } from "./types";
 
 const DIRECTION_6_PATHS = [
@@ -30,7 +29,6 @@ interface VoxelMeshPart {
 interface VoxelMesh {
   name: string;
   groupName?: string;
-  rotation: VoxelMeshRotation;
   parts: VoxelMeshPart[];
   hider: {
     types: VoxelMeshHiderType[];
@@ -63,7 +61,6 @@ export class VoxelMeshDeterminer {
           (mesh): VoxelMesh => ({
             name: mesh.name,
             groupName: mesh.groupName ?? undefined,
-            rotation: mesh.rotation,
             parts: mesh.parts.map((part) => {
               return {
                 name: part.name,
