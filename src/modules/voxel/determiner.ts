@@ -122,7 +122,7 @@ export class VoxelMeshDeterminer {
           }
         }
         countList = countList.filter((x) => x.value > 0);
-        countList.sort((a, b) => a.value - b.value);
+        countList.sort((a, b) => b.value - a.value);
 
         const node: VoxelMeshRuleNode = {
           children: {},
