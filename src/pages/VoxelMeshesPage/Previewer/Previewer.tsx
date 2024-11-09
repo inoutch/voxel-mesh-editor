@@ -53,11 +53,7 @@ export const Previewer = () => {
       <gridHelper
         args={[3, 3]}
         scale={VOXEL_SIZE * VOXEL_SCALE}
-        position={[
-          (VOXEL_SIZE * VOXEL_SCALE) / 2,
-          0,
-          (VOXEL_SIZE * VOXEL_SCALE) / 2,
-        ]}
+        position={[0, 0, 0]}
       />
       <ambientLight />
       <color
@@ -79,14 +75,7 @@ export const Previewer = () => {
       ) : (
         <Model names={bundle?.graphicMeshNames || []} />
       )}
-      <axesHelper
-        args={[5]}
-        position={[
-          (VOXEL_SIZE * VOXEL_SCALE) / 2,
-          0,
-          (VOXEL_SIZE * VOXEL_SCALE) / 2,
-        ]}
-      />
+      <axesHelper args={[5]} position={[0, 0, 0]} />
     </Canvas>
   );
 };
