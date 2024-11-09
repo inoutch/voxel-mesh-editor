@@ -1,6 +1,7 @@
 import z from "zod";
 import { voxelMeshDatabaseStoreSchema as voxelMeshDatabaseStoreSchemaV0_0_1 } from "./v0.0.1";
-import { voxelMeshDatabaseStoreSchema as voxelMeshDatabaseStoreSchemaLatest } from "./v0.0.2";
+import { voxelMeshDatabaseStoreSchema as voxelMeshDatabaseStoreSchemaV0_0_2 } from "./v0.0.2";
+import { voxelMeshDatabaseStoreSchema as voxelMeshDatabaseStoreSchemaLatest } from "./v0.0.3";
 
 export type VoxelMeshDatabaseStore = z.infer<
   typeof voxelMeshDatabaseStoreSchemaLatest
@@ -41,6 +42,7 @@ export const migrate = (data: unknown): VoxelMeshDatabaseStore => {
   const baseSchema = z.discriminatedUnion("version", [
     voxelMeshDatabaseStoreSchemaLatest,
     voxelMeshDatabaseStoreSchemaV0_0_1,
+    voxelMeshDatabaseStoreSchemaV0_0_2,
   ]);
 
   let value = baseSchema.parse(data);
@@ -59,6 +61,18 @@ export const migrate = (data: unknown): VoxelMeshDatabaseStore => {
         };
         break;
       case "0.0.2":
+        value = {
+          version: "0.0.3",
+          meshes: value.meshes.map((mesh) => ({
+            name: mesh.name,
+            groupName: mesh.groupName,
+            hider: mesh.hider,
+            parts: mesh.parts,
+            rotatable: false,
+          })),
+        };
+        break;
+      case "0.0.3":
         return value;
       default:
         fails = true;
@@ -70,7 +84,7 @@ export const migrate = (data: unknown): VoxelMeshDatabaseStore => {
 
 export const createDefault = (): VoxelMeshDatabaseStore => {
   return {
-    version: "0.0.2",
+    version: "0.0.3",
     meshes: [],
   };
 };
