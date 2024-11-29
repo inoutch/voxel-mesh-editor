@@ -12,12 +12,10 @@ export const Box: React.FC<BoxProps> = ({ gridPosition, wireframe, color }) => {
     <mesh
       scale={VOXEL_SIZE * VOXEL_SCALE}
       position={[
-        gridPosition.x * VOXEL_SIZE * VOXEL_SCALE +
-          (VOXEL_SIZE * VOXEL_SCALE) / 2,
+        gridPosition.x * VOXEL_SIZE * VOXEL_SCALE,
         gridPosition.y * VOXEL_SIZE * VOXEL_SCALE +
           (VOXEL_SIZE * VOXEL_SCALE) / 2,
-        gridPosition.z * VOXEL_SIZE * VOXEL_SCALE +
-          (VOXEL_SIZE * VOXEL_SCALE) / 2,
+        gridPosition.z * VOXEL_SIZE * VOXEL_SCALE,
       ]}
     >
       <boxGeometry args={[1, 1, 1]} />
